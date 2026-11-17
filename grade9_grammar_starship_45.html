@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>會考英語文法星艦：45題分層闖關大冒險</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --bg-soft: #162032;
+      --card: #162032;
+      --card-light: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #f59e0b;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --purple: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #1e1b4b, #0b1120 55%, #060913);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: rgba(22, 32, 50, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      color: #fff;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+    }
+
+    .brand h1 {
+      font-size: 1.22rem;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .stat-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-pill span.val {
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+
+    .stat-pill.streak span.val {
+      color: #fb7185;
+    }
+
+    /* Layout Grid */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 315px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 880px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Starship / Guardian Sidebar */
+    .guardian-card {
+      background: linear-gradient(180deg, rgba(22, 32, 50, 0.96), rgba(11, 17, 32, 0.98));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      position: sticky;
+      top: 16px;
+    }
+
+    .guardian-stage-tag {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.18);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .guardian-svg-wrap {
+      width: 195px;
+      height: 195px;
+      margin: 6px auto 12px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.16) 0%, rgba(11, 17, 32, 0) 72%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s ease;
+    }
+
+    .guardian-svg-wrap.evolve-pop {
+      animation: popScale 0.75s ease;
+    }
+
+    @keyframes popScale {
+      0% { transform: scale(0.8); filter: brightness(1.6); }
+      50% { transform: scale(1.12); filter: brightness(1.8); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    .guardian-name {
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+
+    .guardian-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      min-height: 42px;
+    }
+
+    .evo-progress-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .evo-progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #060913;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #a855f7, #f59e0b);
+      width: 0%;
+      transition: width 0.45s ease;
+      border-radius: 999px;
+    }
+
+    .evo-tiers {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .evo-tiers span.active {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    /* Game Area */
+    .game-card {
+      background: rgba(22, 32, 50, 0.94);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      min-height: 500px;
+    }
+
+    /* Start Screen */
+    .start-screen {
+      text-align: center;
+      padding: 10px 6px;
+    }
+
+    .start-screen h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #38bdf8, #f59e0b, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .start-screen p.lead {
+      color: #cbd5e1;
+      max-width: 640px;
+      margin: 0 auto 18px;
+      font-size: 0.98rem;
+    }
+
+    .grammar-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .g-chip {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #bae6fd;
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .name-input-group {
+      max-width: 380px;
+      margin: 0 auto 20px;
+      text-align: left;
+    }
+
+    .name-input-group label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .name-input-group input {
+      width: 100%;
+      padding: 11px 15px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .name-input-group input:focus {
+      border-color: var(--primary);
+    }
+
+    .stage-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    @media (max-width: 640px) {
+      .stage-preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stage-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .stage-box h4 {
+      color: var(--accent);
+      font-size: 0.94rem;
+      margin-bottom: 4px;
+    }
+
+    .stage-box p {
+      font-size: 0.81rem;
+      color: var(--text-muted);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 26px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .btn-secondary {
+      background: var(--card-light);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Quiz Top Meta */
+    .quiz-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .level-pill {
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .lvl-1 { background: rgba(34, 197, 94, 0.18); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); }
+    .lvl-2 { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+    .lvl-3 { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+    .topic-tag {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      background: var(--bg);
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .q-counter {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .q-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--bg);
+      border-radius: 999px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .q-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #a855f7);
+      transition: width 0.3s ease;
+    }
+
+    /* Question Prompt */
+    .q-type-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .q-prompt {
+      font-size: 1.24rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 8px;
+    }
+
+    .q-subhint {
+      font-size: 0.91rem;
+      color: #94a3b8;
+      background: rgba(11, 17, 32, 0.65);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border-left: 3px solid var(--primary);
+      margin-bottom: 18px;
+    }
+
+    /* Multiple Choice */
+    .options-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      color: var(--text);
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-size: 1.02rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--card-light);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background: rgba(34, 197, 94, 0.16);
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--success);
+      color: #052e16;
+    }
+
+    .option-btn.wrong {
+      border-color: var(--danger);
+      background: rgba(239, 68, 68, 0.16);
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    /* Word Tiles Reorder */
+    .sentence-slot {
+      min-height: 62px;
+      background: var(--bg);
+      border: 2px dashed #475569;
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .sentence-slot.has-words {
+      border-style: solid;
+      border-color: var(--primary);
+    }
+
+    .slot-placeholder {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .word-tile {
+      background: var(--card-light);
+      border: 1px solid #475569;
+      color: #f8fafc;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .word-tile:hover:not(:disabled) {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .word-tile.used {
+      opacity: 0.28;
+      cursor: default;
+      transform: none;
+    }
+
+    .word-tile.in-slot {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--primary);
+    }
+
+    /* Fill in the blank */
+    .fill-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .fill-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 13px 16px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+    }
+
+    .fill-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Feedback Box */
+    .feedback-box {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-box.ok {
+      background: rgba(34, 197, 94, 0.14);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+    }
+
+    .feedback-box.bad {
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+
+    .feedback-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .feedback-box.ok .feedback-title { color: #4ade80; }
+    .feedback-box.bad .feedback-title { color: #f87171; }
+
+    .feedback-ans {
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+
+    .feedback-exp {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .action-row {
+      margin-top: 18px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Checkpoint / Stage Clear View */
+    .checkpoint-view, .result-view {
+      text-align: center;
+      padding: 10px 6px;
+    }
+
+    .checkpoint-banner {
+      display: inline-block;
+      background: linear-gradient(90deg, #f59e0b, #ec4899);
+      color: #fff;
+      font-weight: 900;
+      padding: 5px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .checkpoint-svg {
+      width: 215px;
+      height: 215px;
+      margin: 8px auto 14px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22), rgba(11, 17, 32, 0) 72%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 540px;
+      margin: 18px auto 22px;
+    }
+
+    .sum-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .sum-item .num {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .sum-item .lbl {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Review List */
+    .review-section {
+      text-align: left;
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .review-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: #fbbf24;
+    }
+
+    .review-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--danger);
+      border-radius: 12px;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .review-item .r-q {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .review-item .r-a {
+      color: #4ade80;
+      font-weight: 700;
+    }
+
+    .review-item .r-e {
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-size: 0.84rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top Header -->
+    <header>
+      <div class="brand">
+        <span class="brand-badge">九年級會考文法總複習</span>
+        <h1>文法星艦進化戰：45 題分層大闖關</h1>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-pill">⚡ 能量積分：<span class="val" id="scoreDisplay">0</span></div>
+        <div class="stat-pill streak">🔥 連勝：<span class="val" id="streakDisplay">0</span></div>
+        <div class="stat-pill">🚀 關卡進度：<span class="val" id="progressText">0 / 45</span></div>
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <!-- Left Sidebar: Real-Time Evolving Starship -->
+      <aside class="guardian-card">
+        <div class="guardian-stage-tag" id="guardianStageTag">星艦等級 LV.1 / 5</div>
+        <div class="guardian-svg-wrap" id="guardianSvgContainer"></div>
+        <div class="guardian-name" id="guardianName">初階探索艙</div>
+        <div class="guardian-desc" id="guardianDesc">搭載基礎文法引擎的迷你飛行艙，累積 110 分即可升級！</div>
+
+        <div class="evo-progress-box">
+          <div class="evo-progress-header">
+            <span>核心充能進度</span>
+            <span id="nextEvoText">距離下次進化：110 分</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="evoProgressFill"></div>
+          </div>
+          <div class="evo-tiers" id="evoTiersList">
+            <span class="active">探索艙</span>
+            <span>巡航艇</span>
+            <span>戰列艦</span>
+            <span>光翼艦</span>
+            <span>創世方舟</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Main Area -->
+      <main class="game-card">
+        <!-- 1. Start Screen -->
+        <section id="startScreen" class="start-screen">
+          <h2>啟動你的會考英語文法星艦！</h2>
+          <p class="lead">
+            全套 <strong>45 道分層互動關卡</strong>，完整涵蓋國中會考高頻必考文法。累積積分與連勝獎勵，見證你的星艦從迷你探索艙一步步進化為傳說戰艦！
+          </p>
+
+          <div class="grammar-tags-wrap">
+            <span class="g-chip">授與動詞</span>
+            <span class="g-chip">不定詞 vs. 動名詞</span>
+            <span class="g-chip">when/before/after/although/because/if</span>
+            <span class="g-chip">使役動詞</span>
+            <span class="g-chip">連綴動詞</span>
+            <span class="g-chip">感官動詞</span>
+            <span class="g-chip">比較級與最高級</span>
+            <span class="g-chip">other / another</span>
+            <span class="g-chip">虛主詞 it</span>
+            <span class="g-chip">that 名詞子句</span>
+          </div>
+
+          <div class="name-input-group">
+            <label for="playerNameInput">輸入你的艦長代號（顯示在階段與最終榮譽徽章上）：</label>
+            <input type="text" id="playerNameInput" placeholder="例如：905 林小華 / Kevin" maxlength="20" />
+          </div>
+
+          <div class="stage-preview-grid">
+            <div class="stage-box">
+              <h4>🌱 第一星域：基礎啟航 (1–15題)</h4>
+              <p>授與動詞介系詞、基本連接詞、連綴動詞、虛主詞 it 與基礎比較級。</p>
+            </div>
+            <div class="stage-box">
+              <h4>⚔️ 第二星域：進階航道 (16–30題)</h4>
+              <p>不定詞/動名詞易混淆動詞、使役/感官動詞原形與 V-ing、最高級與 that 子句。</p>
+            </div>
+            <div class="stage-box">
+              <h4>👑 第三星域：會考終極試煉 (31–45題)</h4>
+              <p>if 條件句時態陷阱、other/the other/another 精準辨析、修飾比較級與綜合長句。</p>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="startBtn">🚀 點火出發！進入第一星域</button>
+        </section>
+
+        <!-- 2. Active Quiz Screen -->
+        <section id="quizScreen" class="hidden">
+          <div class="quiz-meta">
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <span class="level-pill lvl-1" id="levelPill">第一星域：基礎啟航</span>
+              <span class="topic-tag" id="topicTag">授與動詞</span>
+            </div>
+            <span class="q-counter" id="qCounter">第 1 / 45 題</span>
+          </div>
+
+          <div class="q-progress-bar">
+            <div class="q-progress-fill" id="qProgressFill" style="width: 2.2%"></div>
+          </div>
+
+          <div class="q-type-label" id="qTypeLabel">單選題</div>
+          <div class="q-prompt" id="qPrompt">題目載入中...</div>
+          <div class="q-subhint hidden" id="qSubhint"></div>
+
+          <!-- Multiple Choice Container -->
+          <div id="mcContainer" class="options-list hidden"></div>
+
+          <!-- Reorder Tiles Container -->
+          <div id="reorderContainer" class="hidden">
+            <div class="sentence-slot" id="sentenceSlot">
+              <span class="slot-placeholder">點擊下方單字卡依序組成正確句子...</span>
+            </div>
+            <div class="word-bank" id="wordBank"></div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn btn-secondary" id="clearSlotBtn" type="button">清除重排</button>
+              <button class="btn btn-primary" id="submitReorderBtn" type="button">送出答案</button>
+            </div>
+          </div>
+
+          <!-- Fill-in-the-blank Container -->
+          <div id="fillContainer" class="hidden">
+            <div class="fill-box">
+              <input type="text" class="fill-input" id="fillInput" placeholder="請輸入正確的英文單字或片語..." autocomplete="off" />
+              <button class="btn btn-primary" id="submitFillBtn" type="button">確認送出</button>
+            </div>
+          </div>
+
+          <!-- Immediate Feedback -->
+          <div class="feedback-box" id="feedbackBox">
+            <div class="feedback-title" id="feedbackTitle"></div>
+            <div class="feedback-ans" id="feedbackAns"></div>
+            <div class="feedback-exp" id="feedbackExp"></div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-primary hidden" id="nextBtn">下一題 ➜</button>
+          </div>
+        </section>
+
+        <!-- 3. Stage Checkpoint Screen (After Q15 and Q30) -->
+        <section id="checkpointScreen" class="checkpoint-view hidden">
+          <div class="checkpoint-banner" id="cpBanner">🎉 第一星域突破！星艦階段形態展示</div>
+          <h2 id="cpTitle" style="font-size:1.6rem; margin-bottom:6px;">艦長當下的專屬星艦圖形</h2>
+          <p id="cpSubtitle" style="color:#cbd5e1; font-size:0.95rem;">根據你目前的能量積分，你的星艦已呈現以下進化外觀！</p>
+
+          <div class="checkpoint-svg" id="cpSvgContainer"></div>
+          <h3 id="cpGuardianName" style="font-size:1.35rem; color:#fbbf24; margin-bottom:4px;"></h3>
+          <p id="cpGuardianDesc" style="color:#94a3b8; max-width:480px; margin:0 auto; font-size:0.9rem;"></p>
+
+          <div class="summary-stats">
+            <div class="sum-item">
+              <div class="num" id="cpScore">0</div>
+              <div class="lbl">目前總積分</div>
+            </div>
+            <div class="sum-item">
+              <div class="num" id="cpAccuracy">0%</div>
+              <div class="lbl">目前答對率</div>
+            </div>
+            <div class="sum-item">
+              <div class="num" id="cpMaxStreak">0</div>
+              <div class="lbl">最高連勝</div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="continueStageBtn">躍遷至下一星域 ➜</button>
+        </section>
+
+        <!-- 4. Final Result Screen -->
+        <section id="resultScreen" class="result-view hidden">
+          <div class="checkpoint-banner">🏆 全 45 關會考星艦試煉完成！</div>
+          <h2 id="finalPlayerTitle" style="font-size:1.65rem; margin-bottom:4px;">艦長的最終旗艦圖形</h2>
+          <p id="finalRankText" style="color:#38bdf8; font-weight:700; font-size:1rem;"></p>
+
+          <div class="checkpoint-svg" id="finalSvgContainer"></div>
+          <h3 id="finalGuardianName" style="font-size:1.5rem; color:#fbbf24; margin-bottom:6px;"></h3>
+          <p id="finalGuardianDesc" style="color:#cbd5e1; max-width:520px; margin:0 auto; font-size:0.95rem;"></p>
+
+          <div class="summary-stats">
+            <div class="sum-item">
+              <div class="num" id="finalScore">0</div>
+              <div class="lbl">最終總積分</div>
+            </div>
+            <div class="sum-item">
+              <div class="num" id="finalCorrectCount">0 / 45</div>
+              <div class="lbl">總答對題數</div>
+            </div>
+            <div class="sum-item">
+              <div class="num" id="finalMaxStreak">0</div>
+              <div class="lbl">最高連勝紀錄</div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="restartBtn">🔄 重新挑戰刷高分</button>
+
+          <div class="review-section" id="reviewSection">
+            <h3>📖 會考錯題黃金筆記（考前必看）</h3>
+            <div id="reviewList"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. 5 DISTINCT STARSHIP EVOLUTIONS (SVG)
+    // ==========================================
+    const STARSHIPS = [
+      {
+        level: 1,
+        minScore: 0,
+        name: "LV.1 初階探索艙 (Scout Pod)",
+        desc: "結構輕巧的單人文法偵察艙，累積 110 分即可升級雙翼推進器！",
+        svg: `
+          <svg viewBox="0 0 200 200" width="180" height="180">
+            <defs>
+              <radialGradient id="podGrad" cx="40%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#e0f2fe"/>
+                <stop offset="60%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#1d4ed8"/>
+              </radialGradient>
+            </defs>
+            <!-- Thruster Flame -->
+            <polygon points="88,154 112,154 100,182" fill="#f97316"/>
+            <polygon points="93,154 107,154 100,172" fill="#fde047"/>
+            <!-- Side Fins -->
+            <polygon points="56,120 34,146 62,142" fill="#0284c7"/>
+            <polygon points="144,120 166,146 138,142" fill="#0284c7"/>
+            <!-- Main Capsule -->
+            <rect x="64" y="46" width="72" height="106" rx="36" fill="url(#podGrad)" stroke="#bae6fd" stroke-width="3"/>
+            <!-- Window -->
+            <circle cx="100" cy="86" r="20" fill="#0f172a" stroke="#7dd3fc" stroke-width="3"/>
+            <circle cx="94" cy="80" r="6" fill="#ffffff" opacity="0.75"/>
+            <!-- Engine Base -->
+            <rect x="82" y="148" width="36" height="8" rx="3" fill="#475569"/>
+          </svg>
+        `
+      },
+      {
+        level: 2,
+        minScore: 110,
+        name: "LV.2 疾風巡航艇 (Aero Cruiser)",
+        desc: "加裝翡翠流線機翼與雙離子噴射口，速度大幅提升！累積 230 分進化！",
+        svg: `
+          <svg viewBox="0 0 200 200" width="180" height="180">
+            <defs>
+              <linearGradient id="cruiserGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#6ee7b7"/>
+                <stop offset="100%" stop-color="#059669"/>
+              </linearGradient>
+            </defs>
+            <!-- Twin Flames -->
+            <polygon points="74,154 88,154 81,184" fill="#38bdf8"/>
+            <polygon points="112,154 126,154 119,184" fill="#38bdf8"/>
+            <!-- Swept Wings -->
+            <polygon points="68,94 18,144 68,136" fill="#10b981" stroke="#a7f3d0" stroke-width="2"/>
+            <polygon points="132,94 182,144 132,136" fill="#10b981" stroke="#a7f3d0" stroke-width="2"/>
+            <!-- Fuselage -->
+            <path d="M100 24 L132 100 L124 152 L76 152 L68 100 Z" fill="url(#cruiserGrad)" stroke="#d1fae5" stroke-width="2.5"/>
+            <!-- Cockpit -->
+            <ellipse cx="100" cy="84" rx="14" ry="24" fill="#0f172a" stroke="#6ee7b7" stroke-width="2.5"/>
+            <ellipse cx="96" cy="76" rx="4" ry="8" fill="#ffffff" opacity="0.7"/>
+          </svg>
+        `
+      },
+      {
+        level: 3,
+        minScore: 230,
+        name: "LV.3 雷霆戰列艦 (Thunder Battleship)",
+        desc: "配備雙翼雷射主砲與重裝護盾，能正面擊碎各種動詞時態陷阱！",
+        svg: `
+          <svg viewBox="0 0 200 200" width="180" height="180">
+            <defs>
+              <linearGradient id="battleGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#818cf8"/>
+                <stop offset="100%" stop-color="#4f46e5"/>
+              </linearGradient>
+            </defs>
+            <!-- Triple Thrusters -->
+            <polygon points="72,158 84,158 78,186" fill="#f43f5e"/>
+            <polygon points="93,158 107,158 100,192" fill="#fbbf24"/>
+            <polygon points="116,158 128,158 122,186" fill="#f43f5e"/>
+            <!-- Wing Cannons -->
+            <rect x="26" y="76" width="8" height="44" rx="3" fill="#fde047"/>
+            <rect x="166" y="76" width="8" height="44" rx="3" fill="#fde047"/>
+            <!-- Heavy Wings -->
+            <polygon points="66,80 16,126 32,148 72,134" fill="#3730a3" stroke="#a5b4fc" stroke-width="2"/>
+            <polygon points="134,80 184,126 168,148 128,134" fill="#3730a3" stroke="#a5b4fc" stroke-width="2"/>
+            <!-- Main Hull -->
+            <polygon points="100,20 136,86 128,156 72,156 64,86" fill="url(#battleGrad)" stroke="#c7d2fe" stroke-width="3"/>
+            <!-- Bridge Visor -->
+            <polygon points="84,78 116,78 110,96 90,96" fill="#38bdf8"/>
+            <circle cx="100" cy="122" r="12" fill="#fde047" stroke="#fff" stroke-width="2"/>
+          </svg>
+        `
+      },
+      {
+        level: 4,
+        minScore: 360,
+        name: "LV.4 熾天使光翼艦 (Seraphim Wing)",
+        desc: "展開六片黃金光能羽翼，搭載量子預測雷達，會考難題無所遁形！",
+        svg: `
+          <svg viewBox="0 0 200 200" width="180" height="180">
+            <defs>
+              <linearGradient id="goldWing" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fef08a"/>
+                <stop offset="100%" stop-color="#f59e0b"/>
+              </linearGradient>
+            </defs>
+            <!-- Energy Wings -->
+            <polygon points="72,76 10,44 26,82 70,96" fill="url(#goldWing)"/>
+            <polygon points="128,76 190,44 174,82 130,96" fill="url(#goldWing)"/>
+            <polygon points="68,100 14,104 28,134 72,122" fill="#fb923c"/>
+            <polygon points="132,100 186,104 172,134 128,122" fill="#fb923c"/>
+            <!-- Plasma Exhaust -->
+            <polygon points="86,158 114,158 100,194" fill="#38bdf8"/>
+            <!-- Sleek White-Gold Hull -->
+            <polygon points="100,16 130,88 118,158 82,158 70,88" fill="#f8fafc" stroke="#f59e0b" stroke-width="3"/>
+            <!-- Core & Cockpit -->
+            <polygon points="100,52 112,86 100,104 88,86" fill="#0284c7"/>
+            <circle cx="100" cy="126" r="13" fill="#f59e0b" stroke="#fef08a" stroke-width="2.5"/>
+          </svg>
+        `
+      },
+      {
+        level: 5,
+        minScore: 480,
+        name: "LV.5 星河創世方舟 (Celestial Ark)",
+        desc: "最高傳說旗艦！環繞星辰重力光環，象徵已全面制霸國中會考英語核心文法！",
+        svg: `
+          <svg viewBox="0 0 200 200" width="180" height="180">
+            <defs>
+              <linearGradient id="arkGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#f472b6"/>
+                <stop offset="50%" stop-color="#a855f7"/>
+                <stop offset="100%" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+            <!-- Orbital Halo -->
+            <ellipse cx="100" cy="104" rx="88" ry="26" fill="none" stroke="#fde047" stroke-width="2.5" stroke-dasharray="10 6" transform="rotate(-14 100 104)"/>
+            <!-- Grand Wings -->
+            <path d="M70 72 L12 32 L24 88 L10 124 L72 134 Z" fill="url(#arkGrad)" stroke="#f3e8ff" stroke-width="2"/>
+            <path d="M130 72 L188 32 L176 88 L190 124 L128 134 Z" fill="url(#arkGrad)" stroke="#f3e8ff" stroke-width="2"/>
+            <!-- Super Thruster -->
+            <polygon points="82,158 118,158 100,196" fill="#ec4899"/>
+            <polygon points="90,158 110,158 100,184" fill="#fef08a"/>
+            <!-- Royal Hull -->
+            <polygon points="100,14 134,84 122,158 78,158 66,84" fill="#1e1b4b" stroke="#fde047" stroke-width="3"/>
+            <!-- Star Crown & Core -->
+            <polygon points="100,36 105,48 118,48 108,56 112,68 100,60 88,68 92,56 82,48 95,48" fill="#fde047"/>
+            <circle cx="100" cy="108" r="18" fill="url(#arkGrad)" stroke="#fff" stroke-width="2.5"/>
+            <circle cx="100" cy="108" r="7" fill="#fef08a"/>
+          </svg>
+        `
+      }
+    ];
+
+    // ==========================================
+    // 2. 45 TIERED QUESTIONS (15 per Stage)
+    // ==========================================
+    const QUESTIONS = [
+      // ---------- STAGE 1: 基礎啟航 (Q1 - Q15) ----------
+      {
+        stage: 1,
+        topic: "授與動詞（give / show / send）",
+        type: "mc",
+        prompt: "My uncle gave a cool smartwatch ________ me on my birthday.",
+        subhint: "提示：授與動詞「物 + 介系詞 + 人」，give / show / send 搭配哪個介系詞？",
+        options: ["for", "to", "with", "of"],
+        answer: 1,
+        explanation: "give 屬於「給予方向」的授與動詞（give, send, show, write, lend），事物在人前面時需加介系詞 to。"
+      },
+      {
+        stage: 1,
+        topic: "授與動詞（buy / make / cook）",
+        type: "mc",
+        prompt: "Mom made a delicious strawberry cake ________ us yesterday.",
+        subhint: "提示：媽媽「為我們」做了蛋糕，表示勞務與心意的授與動詞搭配哪個介系詞？",
+        options: ["to", "for", "at", "on"],
+        answer: 1,
+        explanation: "buy, make, cook, get 等表示「替某人準備」的授與動詞，事物在人前面時需用介系詞 for。"
+      },
+      {
+        stage: 1,
+        topic: "不定詞當受詞（want / plan / decide）",
+        type: "mc",
+        prompt: "Kevin plans ________ his grandparents in Tainan this weekend.",
+        subhint: "提示：plan（計畫）、want（想要）、decide（決定）後面要接不定詞還是動名詞？",
+        options: ["visiting", "to visit", "visit", "visited"],
+        answer: 1,
+        explanation: "plan + to V（計畫去做某事），表示尚未發生的未來動作，後面需接不定詞 to visit。"
+      },
+      {
+        stage: 1,
+        topic: "動名詞當受詞（enjoy / finish / practice）",
+        type: "mc",
+        prompt: "Linda enjoys ________ to English pop songs while jogging.",
+        subhint: "提示：enjoy（享受）、finish（完成）、practice（練習）後面固定接什麼形式？",
+        options: ["to listen", "listening", "listens", "listened"],
+        answer: 1,
+        explanation: "enjoy 後面只能接動名詞（V-ing），不可接不定詞 to V，故選 listening。"
+      },
+      {
+        stage: 1,
+        topic: "從屬連接詞（although 雖然）",
+        type: "mc",
+        prompt: "________ it was raining heavily, the soccer players still kept practicing.",
+        subhint: "提示：前後句語意轉折（「雖然」下大雨，球員「仍然」繼續練習），英文不可同時出現 although 和 but！",
+        options: ["Because", "Although", "If", "Before"],
+        answer: 1,
+        explanation: "前後語意相反（下大雨 vs. 繼續練習），用 Although（雖然）引導讓步子句。"
+      },
+      {
+        stage: 1,
+        topic: "連綴動詞（look / smell / taste / sound / feel）",
+        type: "mc",
+        prompt: "The beef noodles on the table smell ________! Let's eat right now.",
+        subhint: "提示：連綴動詞（聞起來、看起來、聽起來）後面要直接接形容詞，不能加 ly 副詞！",
+        options: ["delicious", "deliciously", "well", "wonderfully"],
+        answer: 0,
+        explanation: "smell 為連綴動詞，後方需接形容詞作主詞補語，修飾主詞 the beef noodles，故選 delicious。"
+      },
+      {
+        stage: 1,
+        topic: "形容詞比較級（規則變化與 than）",
+        type: "fill",
+        prompt: "An elephant is much ________ (heavy) than a zebra.",
+        subhint: "提示：子音 + y 結尾的單音節/雙音節形容詞，去 y 加 ier（請輸入比較級單字）。",
+        answer: ["heavier"],
+        explanation: "句中有比較級標誌 than，heavy 為子音 + y 結尾，去 y 加 ier 變成 heavier。"
+      },
+      {
+        stage: 1,
+        topic: "虛主詞 It（It is + adj. + to V）",
+        type: "reorder",
+        prompt: "請重組句子：每天喝足夠的水是很重要的。",
+        subhint: "使用虛主詞 It 放在句首，真主詞 to drink... 放在後面。",
+        words: ["It", "is", "important", "to", "drink", "enough", "water", "every", "day."],
+        answer: "It is important to drink enough water every day.",
+        explanation: "虛主詞標準句型：It + be + 形容詞 + to + 原形動詞。"
+      },
+      {
+        stage: 1,
+        topic: "that 名詞子句（當動詞受詞）",
+        type: "mc",
+        prompt: "I believe ________ you will do a great job on the exam.",
+        subhint: "提示：believe 後面引導一個完整陳述句，用哪個連接詞？",
+        options: ["what", "that", "which", "whether"],
+        answer: 1,
+        explanation: "後方為完整直述句（you will do a great job），且語意肯定，用連接詞 that 引導名詞子句當受詞。"
+      },
+      {
+        stage: 1,
+        topic: "時間連接詞（before / after）",
+        type: "mc",
+        prompt: "Always wash your hands ________ you have lunch.",
+        subhint: "提示：依照衛生習慣，吃午餐「之前」要洗手。",
+        options: ["after", "before", "although", "because"],
+        answer: 1,
+        explanation: "依常理「吃午餐之前（before）」應先洗手。"
+      },
+      {
+        stage: 1,
+        topic: "使役動詞（make / let / have + O + 原形 V）",
+        type: "mc",
+        prompt: "My parents don't let me ________ video games on school nights.",
+        subhint: "提示：使役動詞 let / make / have 後面接受詞，動作動詞要用什麼形式？",
+        options: ["play", "to play", "playing", "played"],
+        answer: 0,
+        explanation: "使役動詞 let + 受詞 + 原形動詞（V），故選 play。"
+      },
+      {
+        stage: 1,
+        topic: "other / another（兩者中的另一個：the other）",
+        type: "mc",
+        prompt: "I have two pets. One is a black cat, and ________ is a white rabbit.",
+        subhint: "提示：總共有「兩個（two）」，一個是…，「剩下的那一個（指定）」要加 the！",
+        options: ["another", "other", "the other", "others"],
+        answer: 2,
+        explanation: "總數為兩個時，固定搭配為「One ..., and the other ...（一個…，另一個…）」。"
+      },
+      {
+        stage: 1,
+        topic: "動名詞當主詞（視為單數）",
+        type: "fill",
+        prompt: "Playing basketball with friends ________ (be) my favorite hobby.",
+        subhint: "提示：動名詞片語當主詞時，視為「第三人稱單數」（現在式請填 is）。",
+        answer: ["is"],
+        explanation: "動名詞片語（Playing basketball...）當主詞代表「一件事」，視為單數，現在式 be 動詞用 is。"
+      },
+      {
+        stage: 1,
+        topic: "授與動詞（句子重組）",
+        type: "reorder",
+        prompt: "請重組句子：請把鹽遞給我。",
+        subhint: "授與動詞 pass 可以用「pass + 人 + 物」的順序。",
+        words: ["Please", "pass", "me", "the", "salt."],
+        answer: "Please pass me the salt.",
+        explanation: "授與動詞句型「動詞 + 間接受詞（人）+ 直接受詞（物）」不需加介系詞。"
+      },
+      {
+        stage: 1,
+        topic: "因果連接詞（because vs. so 不可連用）",
+        type: "mc",
+        prompt: "Tom was late for school ________ he missed the early bus.",
+        subhint: "提示：前面是結果（遲到），後面是原因（錯過公車）。",
+        options: ["so", "because", "although", "if"],
+        answer: 1,
+        explanation: "後方為遲到的原因，用 because 連接；且英文中 because 與 so 不可同時出現在同一句。"
+      },
+
+      // ---------- STAGE 2: 進階航道 (Q16 - Q30) ----------
+      {
+        stage: 2,
+        topic: "感官動詞（see / hear / watch + O + V / V-ing）",
+        type: "mc",
+        prompt: "When I walked past the music room, I heard someone ________ the piano.",
+        subhint: "提示：感官動詞 heard 後面只能接「原形動詞」或「現在分詞（V-ing）」，絕對不能接 to V！",
+        options: ["to play", "playing", "played", "plays"],
+        answer: 1,
+        explanation: "感官動詞 hear + 受詞 + V / V-ing（強調當時正在進行的動作），選項中只有 playing 符合文法。"
+      },
+      {
+        stage: 2,
+        topic: "不定詞 vs. 動名詞（stop to V vs. stop V-ing）",
+        type: "mc",
+        prompt: "We have walked for two hours. Let's stop ________ a rest under the tree.",
+        subhint: "提示：停下腳步「為了去（to V）」休息一下；若是 stop resting 則變成「停止休息」！",
+        options: ["taking", "to take", "take", "took"],
+        answer: 1,
+        explanation: "stop + to V 表示「停下原本動作，去做另一件事（去休息）」；stop + V-ing 則是「停止正在做的事」。"
+      },
+      {
+        stage: 2,
+        topic: "連綴動詞（look like + 名詞）",
+        type: "mc",
+        prompt: "That cloud in the sky looks ________ a giant white dragon!",
+        subhint: "提示：a giant white dragon 是「名詞片語」，連綴動詞後面若接名詞，必須加上介系詞 like！",
+        options: ["as", "like", "for", "to"],
+        answer: 1,
+        explanation: "連綴動詞 + 形容詞（looks cute），但「連綴動詞 + like + 名詞（looks like a dragon）」。"
+      },
+      {
+        stage: 2,
+        topic: "形容詞最高級（the + est / most + 範圍）",
+        type: "mc",
+        prompt: "Mount Jade (Yushan) is ________ mountain in Taiwan.",
+        subhint: "提示：在全台灣（in Taiwan）的範圍中比較，要用「the + 最高級」！",
+        options: ["higher", "the higher", "highest", "the highest"],
+        answer: 3,
+        explanation: "三者以上或特定範圍（in Taiwan）內比較，使用最高級，且形容詞最高級前面通常要加定冠詞 the。"
+      },
+      {
+        stage: 2,
+        topic: "other / another（三者以上的「另一個」：another）",
+        type: "mc",
+        prompt: "This T-shirt is too small for me. Could you show me ________ one?",
+        subhint: "提示：店裡有很多件 T-shirt，請再拿「另外一件（不特定）」給我。",
+        options: ["the other", "another", "others", "the others"],
+        answer: 1,
+        explanation: "在三者或三者以上（不特定數量）中，表示「另一個（單數）」用 another（= an + other）。"
+      },
+      {
+        stage: 2,
+        topic: "時間連接詞（when 過去進行式搭配過去簡單式）",
+        type: "mc",
+        prompt: "Mom was cooking dinner in the kitchen when Dad ________ home.",
+        subhint: "提示：過去某個時間點「正在煮飯（過去進行式）」，爸爸「回到家（瞬間過去式）」。",
+        options: ["comes", "came", "was coming", "will come"],
+        answer: 1,
+        explanation: "when 引導的瞬間動作在過去發生，用過去簡單式 came，搭配主要子句的過去進行式 was cooking。"
+      },
+      {
+        stage: 2,
+        topic: "虛主詞 It（It takes + 人 + 時間 + to V）",
+        type: "fill",
+        prompt: "It takes me twenty minutes ________ (walk) to the MRT station every morning.",
+        subhint: "提示：花費時間句型「It takes + 人 + 時間 + to V」。",
+        answer: ["to walk"],
+        explanation: "花費時間的虛主詞句型為 It takes/took + 人 + 時間 + to + 原形動詞。"
+      },
+      {
+        stage: 2,
+        topic: "不定詞 vs. 動名詞（forget to V vs. forget V-ing）",
+        type: "mc",
+        prompt: "Don't forget ________ off the lights before you leave the classroom.",
+        subhint: "提示：離開教室前別忘了「要去關燈（尚未做的事）」。",
+        options: ["turning", "to turn", "turn", "turned"],
+        answer: 1,
+        explanation: "forget + to V 表示「忘記要去做的事（還沒做）」；forget + V-ing 表示「忘記曾經做過的事」。"
+      },
+      {
+        stage: 2,
+        topic: "使役動詞（help + O + (to) V 與 make + O + 形容詞）",
+        type: "mc",
+        prompt: "Listening to soft music always makes me ________.",
+        subhint: "提示：make + 受詞 + 形容詞（使某人感到…的狀態），注意 relaxed 與 relaxing 的差別！",
+        options: ["relaxing", "relaxed", "to relax", "relaxes"],
+        answer: 1,
+        explanation: "make + 人 + 形容詞（情緒過去分詞 relaxed 表示人「感到放鬆的」；或直接接原形動詞 relax）。"
+      },
+      {
+        stage: 2,
+        topic: "that 名詞子句（句子重組）",
+        type: "reorder",
+        prompt: "請重組句子：我很高興你通過了駕駛考試。",
+        subhint: "情緒形容詞（I am glad）後面也可以接 that 名詞子句說明原因。",
+        words: ["I", "am", "glad", "that", "you", "passed", "the", "driving", "test."],
+        answer: "I am glad that you passed the driving test.",
+        explanation: "主詞 + be + 情緒形容詞（glad/happy/sorry）+ that 子句，表示「對某件事感到…」。"
+      },
+      {
+        stage: 2,
+        topic: "授與動詞（代名詞受詞的位置限制！）",
+        type: "mc",
+        prompt: "That comic book is great! Can you lend ________?",
+        subhint: "提示：當直接受詞（物）是代名詞「it / them」時，絕對不能放在句尾，必須用「lend it to me」！",
+        options: ["me it", "it me", "it to me", "it for me"],
+        answer: 2,
+        explanation: "會考超級愛考！當「物」為代名詞 it 或 them 時，只能寫成「動詞 + it/them + 介系詞 + 人」，且 lend 搭配 to。"
+      },
+      {
+        stage: 2,
+        topic: "比較級句型（越來越…：比較級 + and + 比較級）",
+        type: "mc",
+        prompt: "The weather is getting ________ as winter comes closer.",
+        subhint: "提示：冬天快到了，天氣變得「越來越冷（colder and colder）」。",
+        options: ["cold and cold", "colder and colder", "more and more cold", "coldest and coldest"],
+        answer: 1,
+        explanation: "「比較級 + and + 比較級」表示「越來越…」，單音節形容詞 cold 的比較級為 colder。"
+      },
+      {
+        stage: 2,
+        topic: "不定詞當受詞補語（ask / tell / want + 人 + to V）",
+        type: "fill",
+        prompt: "The teacher told the students ________ ________ (not talk) loudly in the library.",
+        subhint: "提示：告訴某人「不要做某事」，否定不定詞把 not 放在 to 前面（兩個字：not to talk）。",
+        answer: ["not to talk"],
+        explanation: "tell / ask / want + 受詞 + not to V，否定詞 not 必須放在不定詞 to 的正前方。"
+      },
+      {
+        stage: 2,
+        topic: "感官動詞（句子重組）",
+        type: "reorder",
+        prompt: "請重組句子：我剛剛看到一隻狗正在追一隻貓。",
+        subhint: "感官動詞 saw + 受詞 + V-ing。",
+        words: ["I", "saw", "a", "dog", "chasing", "a", "cat", "just", "now."],
+        answer: "I saw a dog chasing a cat just now.",
+        explanation: "感官動詞 saw 後接受詞 a dog，再接現在分詞 chasing 表示當時正在發生的動作。"
+      },
+      {
+        stage: 2,
+        topic: "連綴動詞（become / get / grow + 比較級或形容詞）",
+        type: "mc",
+        prompt: "After taking the medicine, the sick boy felt much ________.",
+        subhint: "提示：much 用來修飾「比較級」，good / well 的比較級是什麼？",
+        options: ["good", "well", "better", "best"],
+        answer: 2,
+        explanation: "連綴動詞 felt 後接形容詞，且前方有修飾比較級的副詞 much，good 的比較級為 better。"
+      },
+
+      // ---------- STAGE 3: 會考終極試煉 (Q31 - Q45) ----------
+      {
+        stage: 3,
+        topic: "條件連接詞 if（主將從現：未來條件用現在式！）",
+        type: "mc",
+        prompt: "If it ________ sunny tomorrow, we will go on a picnic by the lake.",
+        subhint: "提示：在 if（如果）引導的條件副詞子句中，必須用「現在簡單式」代替未來式！",
+        options: ["is", "will be", "was", "has been"],
+        answer: 0,
+        explanation: "會考必考「主將從現」原則！if 引導條件子句時，即使有 tomorrow，動詞仍須用現在簡單式 is。"
+      },
+      {
+        stage: 3,
+        topic: "修飾比較級的副詞（much / even / a lot / far）",
+        type: "mc",
+        prompt: "This math problem is ________ more difficult than the first one.",
+        subhint: "提示：能放在比較級（more difficult）前面加強語氣的只有 much, even, a lot, far（不可用 very！）。",
+        options: ["very", "so", "much", "too"],
+        answer: 2,
+        explanation: "very, so, too 只能修飾原級形容詞；修飾比較級必須用 much, even, a lot 或 far。"
+      },
+      {
+        stage: 3,
+        topic: "other / others / the others 終極辨析",
+        type: "mc",
+        prompt: "Some students in our class like playing basketball, and ________ prefer badminton.",
+        subhint: "提示：班上「一些學生（Some）」…，「其他學生（沒有指定全部剩下的人，複數）」用 others！",
+        options: ["another", "the other", "others", "other"],
+        answer: 2,
+        explanation: "「Some ..., and others ...（一些人…，另一些人…）」表示不特定複數，others = other students。"
+      },
+      {
+        stage: 3,
+        topic: "動名詞特殊慣用語（spend + 時間/金錢 + V-ing）",
+        type: "fill",
+        prompt: "My sister spent two hours ________ (clean) her bedroom this afternoon.",
+        subhint: "提示：人 + spend + 時間 + (in) V-ing（請填入動詞變化形式）。",
+        answer: ["cleaning"],
+        explanation: "人當主詞的「花費」句型：人 + spend + 時間/金錢 + V-ing，故 clean 需改為 cleaning。"
+      },
+      {
+        stage: 3,
+        topic: "最高級的比較級代換（比較級 + than any other + 單數名詞）",
+        type: "mc",
+        prompt: "Tim is taller than ________ boy in his class.",
+        subhint: "提示：在同一群體（in his class）中與「其他任何一個男孩」比較，any other 後面接「單數名詞」！",
+        options: ["any", "any other", "all the", "other"],
+        answer: 1,
+        explanation: "「比較級 + than any other + 單數可數名詞」等同於最高級（Tim is the tallest boy in his class）。"
+      },
+      {
+        stage: 3,
+        topic: "虛主詞 It（for 人 vs. of 人 品格形容詞陷阱！）",
+        type: "mc",
+        prompt: "It is very kind ________ you to help the old lady carry those heavy bags.",
+        subhint: "提示：當形容詞是 kind, nice, smart, silly 等修飾「人的個性/品格」時，介系詞要用 of 而不是 for！",
+        options: ["for", "of", "to", "with"],
+        answer: 1,
+        explanation: "若形容詞描述事件性質（important, difficult）用 for sb.；若形容詞修飾人的品格（kind, nice, polite, foolish）則用 of sb.。"
+      },
+      {
+        stage: 3,
+        topic: "使役動詞與過去分詞（have / get + 事物 + p.p.）",
+        type: "mc",
+        prompt: "My scooter broke down, so I had it ________ at the repair shop.",
+        subhint: "提示：機車（it）是被修理的，使役動詞 have + 事物 + 過去分詞（p.p.）！",
+        options: ["fix", "to fix", "fixed", "fixing"],
+        answer: 2,
+        explanation: "have / get + 受詞（事物）+ p.p.（過去分詞），表示「使某物被…（請人修理機車）」。"
+      },
+      {
+        stage: 3,
+        topic: "that 名詞子句（當主詞：That + 完整子句 + 單數動詞）",
+        type: "reorder",
+        prompt: "請重組句子：地球是圓的這件事是眾所皆知的。",
+        subhint: "用 That 引導名詞子句當整個句子的主詞（注意不可省略 That！）。",
+        words: ["That", "the", "earth", "is", "round", "is", "well", "known."],
+        answer: "That the earth is round is well known.",
+        explanation: "that 名詞子句當主詞時，連接詞 That 絕對不可省略，且整個子句視為單數，後接單數動詞 is。"
+      },
+      {
+        stage: 3,
+        topic: "雙重比較級（The + 比較級 ..., the + 比較級 ... 越…就越…）",
+        type: "mc",
+        prompt: "The harder you practice English, ________ you will speak it.",
+        subhint: "提示：「越…，就越…」固定句型：The + 比較級 + S + V, the + 比較級 + S + V。",
+        options: ["the well", "the better", "better", "the best"],
+        answer: 1,
+        explanation: "「越努力練習，就會說得越好」，後半句需用「the + 副詞比較級（the better）」。"
+      },
+      {
+        stage: 3,
+        topic: "動名詞特殊慣用語（look forward to + V-ing 陷阱！）",
+        type: "mc",
+        prompt: "All the ninth graders are looking forward to ________ on their graduation trip.",
+        subhint: "提示：look forward to（期待）裡的 to 是「介系詞」，後面一定要接 V-ing 動名詞！",
+        options: ["go", "going", "went", "gone"],
+        answer: 1,
+        explanation: "會考經典陷阱！look forward to、be used to（習慣於）中的 to 為介系詞，後方必須接動名詞 going。"
+      },
+      {
+        stage: 3,
+        topic: "although 與 despite / because 與 because of 辨析",
+        type: "mc",
+        prompt: "We canceled the outdoor concert ________ the heavy typhoon.",
+        subhint: "提示：the heavy typhoon 是「名詞片語」，不是完整子句，不能用 because！",
+        options: ["because", "because of", "although", "if"],
+        answer: 1,
+        explanation: "because 後面必須接「主詞 + 動詞」完整子句；後方若只有名詞片語（the heavy typhoon），必須用介系詞片語 because of。"
+      },
+      {
+        stage: 3,
+        topic: "other / the others（指定剩下的全部複數）",
+        type: "fill",
+        prompt: "There are thirty students in the classroom. Ten are boys, and ________ ________ (剩下的全部) are girls.",
+        subhint: "提示：有明確總數 30 人，扣掉 10 個男生，「剩下的全部女生（指定複數）」要加 the 且加 s（兩個字）。",
+        answer: ["the others"],
+        explanation: "有明確範圍與總數時，扣掉部分後「剩下的全部（複數）」為 the others（= the other twenty students）。"
+      },
+      {
+        stage: 3,
+        topic: "感官動詞改被動（還原不定詞 to V！）",
+        type: "mc",
+        prompt: "The boy was seen ________ into the classroom quietly after the bell rang.",
+        subhint: "提示：感官動詞主動句省略 to，但改成被動語態（was seen）時，必須把 to 補回來！",
+        options: ["walk", "to walk", "walked", "is walking"],
+        answer: 1,
+        explanation: "感官動詞（see/hear/watch）與使役動詞（make）改為被動語態時，原形動詞前必須補回 to（be seen to V）。"
+      },
+      {
+        stage: 3,
+        topic: "虛主詞 It（It seems that + 子句 / S + seems + to V）",
+        type: "reorder",
+        prompt: "請重組句子：看起來今天下午似乎會下雨。",
+        subhint: "句型：It seems that + 完整子句。",
+        words: ["It", "seems", "that", "it", "will", "rain", "this", "afternoon."],
+        answer: "It seems that it will rain this afternoon.",
+        explanation: "虛主詞 It 搭配連綴動詞 seems，後方接 that 名詞子句：It seems that + S + V。"
+      },
+      {
+        stage: 3,
+        topic: "會考終極大魔王（if 條件句 + 動名詞慣用語）",
+        type: "mc",
+        prompt: "If you keep ________ hard, you will have no trouble ________ the high school entrance exam.",
+        subhint: "提示：第一格 keep + V-ing（持續做）；第二格 have trouble + V-ing（做某事有困難）！",
+        options: ["studying; passing", "to study; to pass", "studying; to pass", "study; passing"],
+        answer: 0,
+        explanation: "雙重動名詞必考點！keep + V-ing（持續…）與 have trouble/difficulty + V-ing（在…方面有困難），兩格皆須填 V-ing！"
+      }
+    ];
+
+    // ==========================================
+    // 3. GAME STATE & DOM ELEMENTS
+    // ==========================================
+    let currentIdx = 0;
+    let score = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let correctCount = 0;
+    let currentShipLevel = 1;
+    let playerName = "星艦艦長";
+    let wrongLogs = [];
+    let selectedTileIndices = [];
+    let answeredCurrent = false;
+
+    const el = {
+      scoreDisplay: document.getElementById("scoreDisplay"),
+      streakDisplay: document.getElementById("streakDisplay"),
+      progressText: document.getElementById("progressText"),
+      guardianStageTag: document.getElementById("guardianStageTag"),
+      guardianSvgContainer: document.getElementById("guardianSvgContainer"),
+      guardianName: document.getElementById("guardianName"),
+      guardianDesc: document.getElementById("guardianDesc"),
+      nextEvoText: document.getElementById("nextEvoText"),
+      evoProgressFill: document.getElementById("evoProgressFill"),
+      evoTiersList: document.getElementById("evoTiersList"),
+
+      startScreen: document.getElementById("startScreen"),
+      quizScreen: document.getElementById("quizScreen"),
+      checkpointScreen: document.getElementById("checkpointScreen"),
+      resultScreen: document.getElementById("resultScreen"),
+
+      playerNameInput: document.getElementById("playerNameInput"),
+      startBtn: document.getElementById("startBtn"),
+
+      levelPill: document.getElementById("levelPill"),
+      topicTag: document.getElementById("topicTag"),
+      qCounter: document.getElementById("qCounter"),
+      qProgressFill: document.getElementById("qProgressFill"),
+      qTypeLabel: document.getElementById("qTypeLabel"),
+      qPrompt: document.getElementById("qPrompt"),
+      qSubhint: document.getElementById("qSubhint"),
+
+      mcContainer: document.getElementById("mcContainer"),
+      reorderContainer: document.getElementById("reorderContainer"),
+      sentenceSlot: document.getElementById("sentenceSlot"),
+      wordBank: document.getElementById("wordBank"),
+      clearSlotBtn: document.getElementById("clearSlotBtn"),
+      submitReorderBtn: document.getElementById("submitReorderBtn"),
+
+      fillContainer: document.getElementById("fillContainer"),
+      fillInput: document.getElementById("fillInput"),
+      submitFillBtn: document.getElementById("submitFillBtn"),
+
+      feedbackBox: document.getElementById("feedbackBox"),
+      feedbackTitle: document.getElementById("feedbackTitle"),
+      feedbackAns: document.getElementById("feedbackAns"),
+      feedbackExp: document.getElementById("feedbackExp"),
+      nextBtn: document.getElementById("nextBtn"),
+
+      cpBanner: document.getElementById("cpBanner"),
+      cpTitle: document.getElementById("cpTitle"),
+      cpSubtitle: document.getElementById("cpSubtitle"),
+      cpSvgContainer: document.getElementById("cpSvgContainer"),
+      cpGuardianName: document.getElementById("cpGuardianName"),
+      cpGuardianDesc: document.getElementById("cpGuardianDesc"),
+      cpScore: document.getElementById("cpScore"),
+      cpAccuracy: document.getElementById("cpAccuracy"),
+      cpMaxStreak: document.getElementById("cpMaxStreak"),
+      continueStageBtn: document.getElementById("continueStageBtn"),
+
+      finalPlayerTitle: document.getElementById("finalPlayerTitle"),
+      finalRankText: document.getElementById("finalRankText"),
+      finalSvgContainer: document.getElementById("finalSvgContainer"),
+      finalGuardianName: document.getElementById("finalGuardianName"),
+      finalGuardianDesc: document.getElementById("finalGuardianDesc"),
+      finalScore: document.getElementById("finalScore"),
+      finalCorrectCount: document.getElementById("finalCorrectCount"),
+      finalMaxStreak: document.getElementById("finalMaxStreak"),
+      restartBtn: document.getElementById("restartBtn"),
+      reviewSection: document.getElementById("reviewSection"),
+      reviewList: document.getElementById("reviewList")
+    };
+
+    // ==========================================
+    // 4. STARSHIP EVOLUTION & SCORE LOGIC
+    // ==========================================
+    function getShipByScore(pts) {
+      let s = STARSHIPS[0];
+      for (let i = 0; i < STARSHIPS.length; i++) {
+        if (pts >= STARSHIPS[i].minScore) {
+          s = STARSHIPS[i];
+        }
+      }
+      return s;
+    }
+
+    function updateShipUI(animate = false) {
+      const s = getShipByScore(score);
+      const evolved = s.level > currentShipLevel;
+      currentShipLevel = s.level;
+
+      el.guardianStageTag.textContent = `星艦等級 LV.${s.level} / 5`;
+      el.guardianSvgContainer.innerHTML = s.svg;
+      el.guardianName.textContent = s.name;
+      el.guardianDesc.textContent = s.desc;
+
+      if (animate && evolved) {
+        el.guardianSvgContainer.classList.remove("evolve-pop");
+        void el.guardianSvgContainer.offsetWidth;
+        el.guardianSvgContainer.classList.add("evolve-pop");
+      }
+
+      // Progress to next tier
+      const nextTier = STARSHIPS.find(item => item.level === s.level + 1);
+      if (nextTier) {
+        const prevMin = s.minScore;
+        const diff = nextTier.minScore - prevMin;
+        const currentInTier = score - prevMin;
+        const pct = Math.min(100, Math.round((currentInTier / diff) * 100));
+        el.evoProgressFill.style.width = `${pct}%`;
+        el.nextEvoText.textContent = `距離下次進化：還差 ${nextTier.minScore - score} 分`;
+      } else {
+        el.evoProgressFill.style.width = "100%";
+        el.nextEvoText.textContent = "已達最高傳說旗艦！";
+      }
+
+      // Highlight tier labels
+      const spans = el.evoTiersList.querySelectorAll("span");
+      spans.forEach((sp, idx) => {
+        if (idx + 1 <= s.level) sp.classList.add("active");
+        else sp.classList.remove("active");
+      });
+    }
+
+    function updateHeaderStats() {
+      el.scoreDisplay.textContent = score;
+      el.streakDisplay.textContent = streak;
+      el.progressText.textContent = `${Math.min(currentIdx, QUESTIONS.length)} / ${QUESTIONS.length}`;
+    }
+
+    // ==========================================
+    // 5. RENDER QUESTION
+    // ==========================================
+    function renderQuestion() {
+      answeredCurrent = false;
+      const q = QUESTIONS[currentIdx];
+
+      el.feedbackBox.className = "feedback-box";
+      el.nextBtn.classList.add("hidden");
+      el.mcContainer.classList.add("hidden");
+      el.reorderContainer.classList.add("hidden");
+      el.fillContainer.classList.add("hidden");
+
+      // Stage pill styling
+      if (q.stage === 1) {
+        el.levelPill.textContent = "第一星域：基礎啟航";
+        el.levelPill.className = "level-pill lvl-1";
+      } else if (q.stage === 2) {
+        el.levelPill.textContent = "第二星域：進階航道";
+        el.levelPill.className = "level-pill lvl-2";
+      } else {
+        el.levelPill.textContent = "第三星域：會考終極試煉";
+        el.levelPill.className = "level-pill lvl-3";
+      }
+
+      el.topicTag.textContent = q.topic;
+      el.qCounter.textContent = `第 ${currentIdx + 1} / ${QUESTIONS.length} 題`;
+      el.qProgressFill.style.width = `${((currentIdx + 1) / QUESTIONS.length) * 100}%`;
+      el.qPrompt.textContent = q.prompt;
+
+      if (q.subhint) {
+        el.qSubhint.textContent = q.subhint;
+        el.qSubhint.classList.remove("hidden");
+      } else {
+        el.qSubhint.classList.add("hidden");
+      }
+
+      if (q.type === "mc") {
+        el.qTypeLabel.textContent = "🎯 單選題（點擊正確選項）";
+        renderMC(q);
+      } else if (q.type === "reorder") {
+        el.qTypeLabel.textContent = "🧩 句子重組（依序點擊單字卡）";
+        renderReorder(q);
+      } else if (q.type === "fill") {
+        el.qTypeLabel.textContent = "✍️ 語法填空（輸入正確英文）";
+        renderFill(q);
+      }
+    }
+
+    // Multiple Choice Render
+    function renderMC(q) {
+      el.mcContainer.innerHTML = "";
+      el.mcContainer.classList.remove("hidden");
+      const letters = ["A", "B", "C", "D"];
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${optText}</span>`;
+        btn.addEventListener("click", () => handleMCSubmit(idx));
+        el.mcContainer.appendChild(btn);
+      });
+    }
+
+    function handleMCSubmit(selectedIdx) {
+      if (answeredCurrent) return;
+      answeredCurrent = true;
+
+      const q = QUESTIONS[currentIdx];
+      const buttons = el.mcContainer.querySelectorAll(".option-btn");
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.answer) btn.classList.add("correct");
+        if (idx === selectedIdx && selectedIdx !== q.answer) btn.classList.add("wrong");
+      });
+
+      const isCorrect = selectedIdx === q.answer;
+      finalizeAnswer(isCorrect, q.options[q.answer]);
+    }
+
+    // Reorder Tiles Render
+    let shuffledWords = [];
+    function renderReorder(q) {
+      el.reorderContainer.classList.remove("hidden");
+      selectedTileIndices = [];
+      shuffledWords = [...q.words].sort(() => Math.random() - 0.5);
+      if (shuffledWords.join(" ") === q.answer && shuffledWords.length > 1) {
+        [shuffledWords[0], shuffledWords[1]] = [shuffledWords[1], shuffledWords[0]];
+      }
+      drawReorderUI();
+    }
+
+    function drawReorderUI() {
+      el.sentenceSlot.innerHTML = "";
+      if (selectedTileIndices.length === 0) {
+        el.sentenceSlot.classList.remove("has-words");
+        el.sentenceSlot.innerHTML = `<span class="slot-placeholder">點擊下方單字卡依序組成正確句子...</span>`;
+      } else {
+        el.sentenceSlot.classList.add("has-words");
+        selectedTileIndices.forEach((wordIdx, posInSlot) => {
+          const tile = document.createElement("button");
+          tile.type = "button";
+          tile.className = "word-tile in-slot";
+          tile.textContent = shuffledWords[wordIdx];
+          if (!answeredCurrent) {
+            tile.addEventListener("click", () => {
+              selectedTileIndices.splice(posInSlot, 1);
+              drawReorderUI();
+            });
+          }
+          el.sentenceSlot.appendChild(tile);
+        });
+      }
+
+      el.wordBank.innerHTML = "";
+      shuffledWords.forEach((word, idx) => {
+        const tile = document.createElement("button");
+        tile.type = "button";
+        const isUsed = selectedTileIndices.includes(idx);
+        tile.className = `word-tile ${isUsed ? "used" : ""}`;
+        tile.textContent = word;
+        tile.disabled = isUsed || answeredCurrent;
+        tile.addEventListener("click", () => {
+          selectedTileIndices.push(idx);
+          drawReorderUI();
+        });
+        el.wordBank.appendChild(tile);
+      });
+
+      el.clearSlotBtn.disabled = answeredCurrent;
+      el.submitReorderBtn.disabled = answeredCurrent || selectedTileIndices.length === 0;
+    }
+
+    el.clearSlotBtn.addEventListener("click", () => {
+      if (answeredCurrent) return;
+      selectedTileIndices = [];
+      drawReorderUI();
+    });
+
+    el.submitReorderBtn.addEventListener("click", () => {
+      if (answeredCurrent || selectedTileIndices.length === 0) return;
+      answeredCurrent = true;
+      const q = QUESTIONS[currentIdx];
+      const userSentence = selectedTileIndices.map(i => shuffledWords[i]).join(" ");
+      drawReorderUI();
+      const isCorrect = userSentence.trim() === q.answer.trim();
+      finalizeAnswer(isCorrect, q.answer);
+    });
+
+    // Fill-in-the-blank Render
+    function renderFill(q) {
+      el.fillContainer.classList.remove("hidden");
+      el.fillInput.value = "";
+      el.fillInput.disabled = false;
+      el.submitFillBtn.disabled = false;
+      setTimeout(() => el.fillInput.focus(), 50);
+    }
+
+    function handleFillSubmit() {
+      if (answeredCurrent) return;
+      const val = el.fillInput.value.trim();
+      if (!val) return;
+      answeredCurrent = true;
+      el.fillInput.disabled = true;
+      el.submitFillBtn.disabled = true;
+
+      const q = QUESTIONS[currentIdx];
+      const normalizedUser = val.toLowerCase().replace(/\s+/g, " ");
+      const isCorrect = q.answer.some(ans => ans.toLowerCase() === normalizedUser);
+      finalizeAnswer(isCorrect, q.answer[0]);
+    }
+
+    el.submitFillBtn.addEventListener("click", handleFillSubmit);
+    el.fillInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") handleFillSubmit();
+    });
+
+    // ==========================================
+    // 6. ANSWER EVALUATION & FEEDBACK
+    // ==========================================
+    function finalizeAnswer(isCorrect, correctAnswerText) {
+      const q = QUESTIONS[currentIdx];
+      const prevLevel = currentShipLevel;
+
+      if (isCorrect) {
+        correctCount++;
+        streak++;
+        if (streak > maxStreak) maxStreak = streak;
+        const basePoints = q.stage === 1 ? 10 : q.stage === 2 ? 12 : 14;
+        const streakBonus = streak >= 3 ? 3 : 0;
+        const earned = basePoints + streakBonus;
+        score += earned;
+
+        el.feedbackBox.className = "feedback-box show ok";
+        el.feedbackTitle.textContent = streak >= 3
+          ? `✅ 答對了！能量 +${earned} 分（含連勝加碼 +3 分 🔥）`
+          : `✅ 答對了！能量 +${earned} 分`;
+      } else {
+        streak = 0;
+        wrongLogs.push({
+          number: currentIdx + 1,
+          topic: q.topic,
+          prompt: q.prompt,
+          correctAnswer: correctAnswerText,
+          explanation: q.explanation
+        });
+
+        el.feedbackBox.className = "feedback-box show bad";
+        el.feedbackTitle.textContent = "❌ 哎呀，這題答錯了！快看看會考解析";
+      }
+
+      el.feedbackAns.textContent = `正確答案：${correctAnswerText}`;
+      el.feedbackExp.textContent = `💡 文法解析：${q.explanation}`;
+
+      updateShipUI(true);
+      const newLevel = currentShipLevel;
+      if (newLevel > prevLevel) {
+        el.feedbackTitle.textContent += ` ✨ 星艦升級為【${getShipByScore(score).name}】！`;
+      }
+
+      el.progressText.textContent = `${currentIdx + 1} / ${QUESTIONS.length}`;
+      el.scoreDisplay.textContent = score;
+      el.streakDisplay.textContent = streak;
+
+      el.nextBtn.textContent =
+        currentIdx === 14 ? "查看第一星域星艦結算 🎉" :
+        currentIdx === 29 ? "查看第二星域星艦結算 🎉" :
+        currentIdx === QUESTIONS.length - 1 ? "查看最終星艦圖形與成績 🏆" :
+        "下一題 ➜";
+      el.nextBtn.classList.remove("hidden");
+    }
+
+    // ==========================================
+    // 7. NAVIGATION & CHECKPOINTS
+    // ==========================================
+    el.startBtn.addEventListener("click", () => {
+      const inputName = el.playerNameInput.value.trim();
+      if (inputName) playerName = inputName;
+      el.startScreen.classList.add("hidden");
+      el.quizScreen.classList.remove("hidden");
+      currentIdx = 0;
+      score = 0;
+      streak = 0;
+      maxStreak = 0;
+      correctCount = 0;
+      wrongLogs = [];
+      currentShipLevel = 1;
+      updateHeaderStats();
+      updateShipUI(false);
+      renderQuestion();
+    });
+
+    el.nextBtn.addEventListener("click", () => {
+      // Stage 1 Checkpoint after Q15 (index 14)
+      if (currentIdx === 14) {
+        showCheckpoint(1);
+        return;
+      }
+      // Stage 2 Checkpoint after Q30 (index 29)
+      if (currentIdx === 29) {
+        showCheckpoint(2);
+        return;
+      }
+      // Final Result after Q45 (index 44)
+      if (currentIdx === QUESTIONS.length - 1) {
+        showFinalResult();
+        return;
+      }
+
+      currentIdx++;
+      renderQuestion();
+    });
+
+    function showCheckpoint(completedStage) {
+      el.quizScreen.classList.add("hidden");
+      el.checkpointScreen.classList.remove("hidden");
+
+      const s = getShipByScore(score);
+      const answeredSoFar = completedStage * 15;
+      const acc = Math.round((correctCount / answeredSoFar) * 100);
+
+      el.cpBanner.textContent = `🎉 第 ${completedStage} 星域完成！星艦階段形態展示`;
+      el.cpTitle.textContent = `${playerName} 的星艦目前外觀`;
+      el.cpSvgContainer.innerHTML = s.svg;
+      el.cpGuardianName.textContent = s.name;
+      el.cpGuardianDesc.textContent = s.desc;
+      el.cpScore.textContent = score;
+      el.cpAccuracy.textContent = `${acc}%`;
+      el.cpMaxStreak.textContent = maxStreak;
+
+      el.continueStageBtn.textContent =
+        completedStage === 1 ? "進入第二星域：進階航道 ➜" : "進入第三星域：會考終極試煉 ➜";
+    }
+
+    el.continueStageBtn.addEventListener("click", () => {
+      el.checkpointScreen.classList.add("hidden");
+      el.quizScreen.classList.remove("hidden");
+      currentIdx++;
+      renderQuestion();
+    });
+
+    function showFinalResult() {
+      el.quizScreen.classList.add("hidden");
+      el.resultScreen.classList.remove("hidden");
+
+      const s = getShipByScore(score);
+      el.finalPlayerTitle.textContent = `${playerName} 的專屬會考旗艦`;
+      el.finalSvgContainer.innerHTML = s.svg;
+      el.finalGuardianName.textContent = s.name;
+      el.finalGuardianDesc.textContent = s.desc;
+      el.finalScore.textContent = score;
+      el.finalCorrectCount.textContent = `${correctCount} / ${QUESTIONS.length}`;
+      el.finalMaxStreak.textContent = maxStreak;
+
+      let rankMsg = "";
+      if (s.level === 5) rankMsg = "會考精熟 A++ 傳說艦長！十大核心文法已全面制霸！";
+      else if (s.level === 4) rankMsg = "會考菁英 A+ 艦長！掌握絕大多數高難度文法變化！";
+      else if (s.level === 3) rankMsg = "會考基礎穩固艦長！複習下方錯題筆記就能衝刺最高等級！";
+      else rankMsg = "潛力新星艦長！多挑戰幾次就能讓星艦進化為更高階旗艦喔！";
+      el.finalRankText.textContent = rankMsg;
+
+      // Render Wrong Logs
+      el.reviewList.innerHTML = "";
+      if (wrongLogs.length === 0) {
+        el.reviewList.innerHTML = `<div class="review-item" style="border-left-color:#22c55e;">太神啦！45 題全對，會考文法零死角！</div>`;
+      } else {
+        wrongLogs.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "review-item";
+          div.innerHTML = `
+            <div class="r-q">第 ${item.number} 題【${item.topic}】：${item.prompt}</div>
+            <div class="r-a">✔ 正確答案：${item.correctAnswer}</div>
+            <div class="r-e">💡 ${item.explanation}</div>
+          `;
+          el.reviewList.appendChild(div);
+        });
+      }
+    }
+
+    el.restartBtn.addEventListener("click", () => {
+      el.resultScreen.classList.add("hidden");
+      el.startScreen.classList.remove("hidden");
+      currentIdx = 0;
+      score = 0;
+      streak = 0;
+      updateHeaderStats();
+      updateShipUI(false);
+    });
+
+    // Init Sidebar Starship on Load
+    updateShipUI(false);
+  </script>
+</body>
+</html>
